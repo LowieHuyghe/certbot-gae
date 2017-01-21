@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Elevate command to sudo
+if [ $EUID != 0 ]; then
+    echo "Elevating privileges to sudo to read the config/live-directory"
+    sudo "$0" "$@"
+    exit $?
+fi
+
+# Go to current working directory
+pwd="$(dirname "$0")"
+
+# Loop the domain folders
+fixed=0
+if [ -d "$pwd/config/live" ]
+then
+    for d in $pwd/config/live/*/
+    do
+        if [ -f "$d/privkey.pem" ]
+        then
+            openssl rsa -in "$d/privkey.pem" > "$d/privkey-rsa.pem"
+            if [[ $? -eq 0 ]]
+            then
+                echo "Fixed privkey in $d"
+                fixed=$((fixed + 1))
+            else
+                echo "An error occurred while fixing privkey in $d"
+            fi
+        fi
+    done
+fi
+
+# Output
+if [[ fixed -eq 0 ]]
+then
+    echo "No domains found to fix"
+    exit 1
+fi
