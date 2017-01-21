@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Go to current working directory
+pwd="$(dirname "$0")"
+
+# Check if certbot-auto is already fetched
+if [ ! -f "$pwd/bin/certbot-auto-debian" ]
+then
+    curl "https://dl.eff.org/certbot-auto" -o "$pwd/bin/certbot-auto-debian"
+    chmod +x "$pwd/bin/certbot-auto-debian"
+fi
+
+# Run certbot-auto with given parameters
+command "$pwd/bin/certbot-auto-debian" $@ --config-dir "$pwd/config" --work-dir "$pwd/work" --logs-dir "$pwd/logs"
+
+# Fix privkey for gae if success
+if [[ $? -eq 0 ]]
+then
+    command "$pwd/fix-privkey-gae"
+fi
