@@ -9,16 +9,19 @@ rests after some time. This will help you with that.
 
 1. Open up Google Cloud Shell in Google Cloud Console.
 2. Clone the project somewhere in your **home-directory**:
-```bash
+
+ ```bash
 git clone git@github.com:LowieHuyghe/certbot-gae.git
 ```
 3. Move into the new directory:
-```shell
+
+ ```shell
 cd certbot-gae
 ```
 4. `certbot-auto-gae` and `fix-privkey-gae` should be executable by
 default. If not, run:
-```shell
+
+ ```shell
 chmod a+x certbot-auto-gae fix-privkey-gae
 ```
 5. Run `certbot-auto-gae` like you would run `certbot-auto`
@@ -30,23 +33,26 @@ We need the intact directory so we don't lose your config and accounts.
 ## Usage for Google App Engine
 
 1. Start requesting an SSL-certificate:
-```shell
+
+ ```shell
 certbot-auto-gae certonly --manual
-```
+```  
 Answer the initial questions, supply your domains and stop at the moment
 you have to serve the acme-challenges on the web-server. Don't press
 Enter till it does so.
 2. In another terminal, add the following handler to the `app.yaml` of
 your application:
-```yaml
+
+ ```yaml
  - url: /\.well-known/acme-challenge/([\w\d_-]+)$
   static_files: public/.well-known/acme-challenge/\1
   upload: public/\.well-known/acme-challenge/([\w\d_-]+)$
   secure: optional
-```
+```  
 This will make the acme-challenges accessible.
 3. Add the acme-challenges provided by the certbot to your application:
-```bash
+
+ ```bash
 printf "%s" acme-challenge-content > public/.well-known/acme-challenge/acme-challenge-file
 ```
 4. Deploy the app to Google App Engine and make sure that the
