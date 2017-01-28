@@ -3,7 +3,7 @@
 Let's Encrypt Certbot for usage in Google Cloud Shell for Google App Engine.
 
 By default Certbot is not usable in Google Cloud shell as the machine
-rests after some time. This will help you with that.
+resets after some time. This will help you with that.
 
 ## Installation
 
