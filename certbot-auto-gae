@@ -14,7 +14,7 @@ fi
 command "$pwd/bin/certbot-auto-debian" $@ --config-dir "$pwd/config" --work-dir "$pwd/work" --logs-dir "$pwd/logs"
 
 # Fix privkey for gae if success
-if [[ $? -eq 0 ]]
+if [ $? -eq 0 ]
 then
     command "$pwd/fix-privkey-gae"
 fi
