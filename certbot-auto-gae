@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Go to current working directory
 pwd="$(dirname "$0")"

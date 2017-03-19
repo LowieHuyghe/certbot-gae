@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Elevate command to sudo
 if [ $EUID != 0 ]; then
