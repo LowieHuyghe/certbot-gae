@@ -1,4 +1,4 @@
-# [DEPRECATED] Certbot GAE
+# Certbot GAE
 
 Let's Encrypt Certbot for usage in Google Cloud Shell for Google App Engine.
 
